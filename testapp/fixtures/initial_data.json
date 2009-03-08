@@ -1,0 +1,105 @@
+[
+  {
+    "pk": 1, 
+    "model": "testapp.people", 
+    "fields": {
+      "name": "Eric"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "testapp.people", 
+    "fields": {
+      "name": "Paul"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "testapp.people", 
+    "fields": {
+      "name": "Numa"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "testapp.relationship", 
+    "fields": {
+      "source": 1, 
+      "type": "is father of", 
+      "target": 2
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "testapp.relationship", 
+    "fields": {
+      "source": 2, 
+      "type": "is brother of", 
+      "target": 3
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "testapp.relationship", 
+    "fields": {
+      "source": 3, 
+      "type": "is younger than", 
+      "target": 2
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "testapp.car", 
+    "fields": {
+      "color": "black", 
+      "owner": 1, 
+      "type": "opel 1900 GT"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "testapp.car", 
+    "fields": {
+      "color": "black", 
+      "owner": 2, 
+      "type": "Batmobile"
+    }
+  }, 
+  {
+    "pk": "main", 
+    "model": "graphviz.graph", 
+    "fields": {
+      "name": "Example", 
+      "content_type": 8, 
+      "object_id": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "graphviz.nodevisual", 
+    "fields": {
+      "graph": "main", 
+      "shape": "circle", 
+      "content_type": 8
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "graphviz.nodevisual", 
+    "fields": {
+      "graph": "main", 
+      "shape": "box", 
+      "content_type": 10
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "graphviz.arrowvisual", 
+    "fields": {
+      "graph": "main", 
+      "shape": "normal", 
+      "modifier": "r", 
+      "content_type": 9
+    }
+  }
+]

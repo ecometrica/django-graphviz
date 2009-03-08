@@ -15,14 +15,27 @@ class Graph(models.Model):
         a node may have a method gv_visual(graph) that returns
         a NodeVisual instance or None.
         
-        links and nodes may have a gv_label(graph) method
+        links may have a gv_link_label(graph) method
+        nodes may have a gv_node_label(graph) method
         
+        see also interfaces.py module.
     """
     slug = models.SlugField(primary_key=True)
     name = models.CharField(max_length=50)
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
+    
+    def download_dot_file(self):
+        return '<a href=/graphviz/dot_file/%s/>download</a>' % self.slug
+    download_dot_file.allow_tags = True
+    
+    def download_image(self):
+        return '<a href=/graphviz/image_file/%s/>download</a>' % self.slug
+    download_image.allow_tags = True
+    
+    def __unicode__(self):
+        return self.name
 
 NODE_SHAPE_CHOICES = (('box','Box'),
                       ('circle','Circle'),
@@ -37,6 +50,9 @@ class NodeVisual(models.Model):
     shape = models.CharField(max_length=50, default='circle', choices=NODE_SHAPE_CHOICES)
     graph = models.ForeignKey(Graph)
     content_type = models.ForeignKey(ContentType)
+    
+    def __unicode__(self):
+        return self.shape
 
 ARROW_SHAPE_CHOICES = (('box','box'),
                        ('crow','crow'),
@@ -60,3 +76,6 @@ class ArrowVisual(models.Model):
     modifier = models.CharField(max_length=1, default='r', choices=ARROW_MODIFIER_CHOICES)
     graph = models.ForeignKey(Graph)
     content_type = models.ForeignKey(ContentType)
+    
+    def __unicode__(self):
+        return self.shape

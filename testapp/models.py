@@ -10,12 +10,12 @@ class People(models.Model, IGraphRoot, INode):
     name = models.CharField(max_length=50)
     
     def gv_edges(self, graph):
-        links = Relationship.objects.all()
+        links = list(Relationship.objects.all())
         links.extend(self.car_set.all())
         return links
     
     def gv_nodes(self, graph):
-        nodes = People.objects.all()
+        nodes = list(People.objects.all())
         nodes.extend(self.car_set.all())
         return nodes
     

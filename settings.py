@@ -83,4 +83,4 @@ INSTALLED_APPS = (
     'django_graphviz.graphviz',
 )
 
-GRAPHVIZ_DOT2IMG_CMD = 'D:/tools/Graphviz2.20/bin/dot.exe %s -Tpng -o %s.png'
+GRAPHVIZ_DOT_CMD = 'D:/tools/Graphviz2.20/bin/dot.exe'

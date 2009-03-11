@@ -48,6 +48,15 @@
     }
   }, 
   {
+    "pk": 4, 
+    "model": "testapp.relationship", 
+    "fields": {
+      "source": 1, 
+      "type": "is father of", 
+      "target": 3
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "testapp.car", 
     "fields": {

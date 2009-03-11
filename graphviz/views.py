@@ -3,8 +3,14 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from models import Graph
 
+from django.template import Template
+
 from os import system
 from django.conf import settings
+
+import os
+from os.path import join
+_tmpdir = os.environ['TMP']
 
 class TEdge:
     def __init__(self, data, graph):
@@ -28,4 +34,11 @@ def dot_file(request, slug, view=False, template='graphviz/dot_file.dot'):
     return response
 
 def image_file(request, slug, template='graphviz/dot_file.html'):
-    return HttpResponse('todo image')
+    resp = dot_file(request, slug, template)
+    path_dot = join(_tmpdir, 'graphviz_tmp.dot')
+    tdot = open(path_dot, 'w')
+    tdot.write(resp.content)
+    tdot.close()
+    system('%s %s Tpng -o %s.png' % (settings.GRAPHVIZ_DOT_CMD, path_dot, path_dot))
+    
+    return HttpResponse('image '+path_dot+'.png')

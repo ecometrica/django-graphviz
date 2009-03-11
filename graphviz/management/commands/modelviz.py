@@ -9,6 +9,8 @@ from django.db.models import get_models
 from django.db.models.fields.related import \
     ForeignKey, OneToOneField, ManyToManyField
 
+from django.core.management.base import AppCommand
+
 try:
     from django.db.models.fields.generic import GenericRelation
 except ImportError:

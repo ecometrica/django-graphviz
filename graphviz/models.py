@@ -26,16 +26,22 @@ class Graph(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     
+    def view_dot_file(self):
+        return '<a href=/graphviz/dot_view/%s/>view</a>' % self.slug
+    view_dot_file.allow_tags = True
+    
     def download_dot_file(self):
         return '<a href=/graphviz/dot_file/%s/>download</a>' % self.slug
     download_dot_file.allow_tags = True
     
     def download_image(self):
-        return '<a href=/graphviz/image_file/%s/>download</a>' % self.slug
+        return '<a href=/graphviz/image_file/%s/>download (TODO)</a>' % self.slug
     download_image.allow_tags = True
     
     def __unicode__(self):
         return self.name
+    class Meta:
+        verbose_name_plural = 'Graphes'
 
 NODE_SHAPE_CHOICES = (('box','Box'),
                       ('circle','Circle'),
@@ -79,3 +85,18 @@ class ArrowVisual(models.Model):
     
     def __unicode__(self):
         return self.shape
+
+class CacheImage(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    valid = models.BooleanField(default=True)
+    graph = models.ForeignKey(Graph)
+    file = models.ImageField(upload_to='graph_images')
+    
+    def graphic(self):
+        return '<img name=image%d src=%s>' % (self.pk, self.file.url)
+    graphic.allow_tags = True
+            
+    def __unicode__(self):
+        return self.graph.name
+    class Meta:
+        verbose_name_plural = 'Caches images'

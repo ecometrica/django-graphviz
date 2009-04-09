@@ -8,7 +8,7 @@ admin.site.register(Graph, GraphAdmin)
 
 
 class NodeVisualAdmin(admin.ModelAdmin):
-   list_display = ('shape', 'graph', 'content_type')
+   list_display = ('name', 'shape', 'options', 'graph', 'content_type')
    list_filter = ('content_type', 'graph')
 admin.site.register(NodeVisual, NodeVisualAdmin)
 

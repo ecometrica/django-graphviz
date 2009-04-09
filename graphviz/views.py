@@ -21,6 +21,7 @@ class TEdge:
 class TGraph:
     def __init__(self, graph):
         self.edges = []
+        self.nodes = graph.content_object.gv_nodes(graph)
         for e in graph.content_object.gv_edges(graph):
             self.edges.append(TEdge(e, graph))
 

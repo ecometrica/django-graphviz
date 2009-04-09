@@ -22,19 +22,22 @@ class Graph(models.Model):
     """
     slug = models.SlugField(primary_key=True)
     name = models.CharField(max_length=50)
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     
     def view_dot_file(self):
+        if not self.object_id: return "(n.a.)"
         return '<a href=/graphviz/dot_view/%s/>view</a>' % self.slug
     view_dot_file.allow_tags = True
     
     def download_dot_file(self):
+        if not self.object_id: return "(n.a.)"
         return '<a href=/graphviz/dot_file/%s/>download</a>' % self.slug
     download_dot_file.allow_tags = True
     
     def download_image(self):
+        if not self.object_id: return "(n.a.)"
         return '<a href=/graphviz/image_file/%s/>download (TODO)</a>' % self.slug
     download_image.allow_tags = True
     
@@ -48,17 +51,20 @@ NODE_SHAPE_CHOICES = (('box','Box'),
                       ('doublecircle','Double circle'),
                       ('box3d','Box 3D'),
                       ('diamond','Diamond'),
+                      ('parallelogram','Parallelogram'),
                       )
 class NodeVisual(models.Model):
     """ the content_type attribute is used to define the default Node
         when no method gv_node is provided.
     """
+    name = models.CharField(max_length=50, null=True, blank=True)
     shape = models.CharField(max_length=50, default='circle', choices=NODE_SHAPE_CHOICES)
     graph = models.ForeignKey(Graph)
     content_type = models.ForeignKey(ContentType)
+    options = models.CharField(max_length=100, null=True, blank=True, help_text='comma-separated options')
     
     def __unicode__(self):
-        return self.shape
+        return self.name or self.shape
 
 ARROW_SHAPE_CHOICES = (('box','box'),
                        ('crow','crow'),

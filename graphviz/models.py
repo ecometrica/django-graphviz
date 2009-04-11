@@ -4,7 +4,7 @@ from django.contrib.contenttypes import generic
 
 class Graph(models.Model):
     """ the object defined by the generic relation should have
-        a method gv_links(graph) that returns a sequence of links.
+        a method gv_edges(graph) that returns a sequence of links.
         a method gv_nodes(graph) that returns a sequence of nodes.
 
         a link should have a method gv_ends(graph) that returns a sequence
@@ -15,7 +15,7 @@ class Graph(models.Model):
         a node may have a method gv_visual(graph) that returns
         a NodeVisual instance or None.
         
-        links may have a gv_link_label(graph) method
+        links may have a gv_edge_label(graph) method
         nodes may have a gv_node_label(graph) method
         
         see also interfaces.py module.
@@ -62,6 +62,11 @@ class NodeVisual(models.Model):
     graph = models.ForeignKey(Graph)
     content_type = models.ForeignKey(ContentType)
     options = models.CharField(max_length=100, null=True, blank=True, help_text='comma-separated options')
+    
+    def dot_options(self):
+        opts = ', shape=%s' % self.shape
+        if self.options: opts += ', %s' % self.options
+        return opts
     
     def __unicode__(self):
         return self.name or self.shape

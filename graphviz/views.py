@@ -12,6 +12,12 @@ import os
 from os.path import join
 _tmpdir = os.environ['TMP']
 
+class TNode:
+    def __init__(self, node, graph):
+        self.node = node
+        self.label = node.gv_node_label(graph)
+        self.options = node.gv_visual(graph).dot_options()
+    
 class TEdge:
     def __init__(self, data, graph):
         self.start_node, self.end_node = data.gv_ends(graph)
@@ -20,8 +26,10 @@ class TEdge:
         self.label = data.gv_edge_label(graph)
 class TGraph:
     def __init__(self, graph):
+        self.nodes = []
         self.edges = []
-        self.nodes = graph.content_object.gv_nodes(graph)
+        for node in graph.content_object.gv_nodes(graph):
+            self.nodes.append(TNode(node, graph))
         for e in graph.content_object.gv_edges(graph):
             self.edges.append(TEdge(e, graph))
 

@@ -1,6 +1,9 @@
 
 digraph G {
+	{% for node in graph.nodes %}
+	{{ node.label }} [label = "{{ node.label }}" {{ node.options }}];
+	{% endfor %}
 	{% for edge in graph.edges %}
-	"{{ edge.start_node_label }}" -> "{{ edge.end_node_label }}" [label = "{{ edge.label }}"];
+	{{ edge.start_node.gv_node_label }} -> {{ edge.end_node.gv_node_label }} [label = "{{ edge.label }}"];
 	{% endfor %}
 }

@@ -9,8 +9,8 @@ setup(
     author='gsoftware@free.fr',
     author_email='gsoftware@free.fr',
     url='http://code.google.com/p/django-graphviz/',
-    packages=['graphviz'],
-    package_data={'graphviz': ['*.dot']},
+    packages=['graphviz', 'graphviz.management', 'graphviz.management.commands'],
+    package_data={'graphviz': ['graphviz/templates/graphviz/*.dot']},
     zip_safe=False,
     classifiers = [
         'Development Status :: 3 - Alpha',

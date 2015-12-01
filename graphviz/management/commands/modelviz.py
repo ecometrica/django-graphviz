@@ -12,8 +12,9 @@ from django.db.models.fields.related import \
 from django.core.management.base import AppCommand
 
 try:
-    from django.db.models.fields.generic import GenericRelation
+    from django.contrib.contenttypes.fields import GenericRelation
 except ImportError:
+    # Django < 1.7 support
     from django.contrib.contenttypes.generic import GenericRelation
 
 head_template = """

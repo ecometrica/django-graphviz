@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+try:
+    from django.contrib.contenttypes.fields import GenericForeignKey
+except ImportError:
+    # Django < 1.7 support
+    from django.contrib.contenttypes.generic import GenericForeignKey
 
 class Graph(models.Model):
     """ the object defined by the generic relation should have
@@ -24,7 +28,7 @@ class Graph(models.Model):
     name = models.CharField(max_length=50)
     content_type = models.ForeignKey(ContentType, null=True, blank=True)
     object_id = models.PositiveIntegerField(null=True, blank=True)
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
     
     def view_dot_file(self):
         if not self.object_id: return "(n.a.)"

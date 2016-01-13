@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='django-graphviz',
-    version='0.1',
+    version='0.1.1',
     description='Django Graphviz extension',
     author='gsoftware@free.fr',
     author_email='gsoftware@free.fr',

@@ -13,7 +13,7 @@ class INode:
         return None
     
     def gv_node_label(self, graph):
-        return unicode(self)
+        return str(self)
 
 class IEdge:
     def gv_ends(self, graph):
@@ -22,4 +22,4 @@ class IEdge:
         raise Exception('not implemented')
     
     def gv_edge_label(self, graph):
-        return unicode(self)
+        return str(self)

@@ -1,9 +1,9 @@
 from django.conf.urls import patterns
 
-import views
+from .views import dot_file, image_file
 
 urlpatterns = patterns('',
-    (r'^dot_file/(?P<slug>.*)/$', views.dot_file, {'template':'graphviz/dot_file.dot'}),
-    (r'^dot_view/(?P<slug>.*)/$', views.dot_file, {'view':True, 'template':'graphviz/dot_file.dot'}),
-    (r'^image_file/(?P<slug>.*)/$', views.image_file),
+    (r'^dot_file/(?P<slug>.*)/$', dot_file, {'template':'graphviz/dot_file.dot'}),
+    (r'^dot_view/(?P<slug>.*)/$', dot_file, {'view':True, 'template':'graphviz/dot_file.dot'}),
+    (r'^image_file/(?P<slug>.*)/$', image_file),
 )

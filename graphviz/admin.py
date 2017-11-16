@@ -1,5 +1,6 @@
 from django.contrib import admin
-from models import *
+from .models import ArrowVisual, CacheImage, Graph, NodeVisual
+
 
 class GraphAdmin(admin.ModelAdmin):
    list_display = ('slug', 'name', 'content_type', 'view_dot_file', 'download_dot_file', 'download_image')
